@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import logo from './logo.svg';
+import reduxLogo from './redux.png';
+import jestLogo from './jest.png';
+
 import './App.css';
 
 import { simpleAction } from './actions/SimpleAction'
@@ -22,7 +25,9 @@ class App extends Component {
    <div className="App">
     <header className="App-header">
      <img src={logo} className="App-logo" alt="logo" />
-     <h1 className="App-title">Welcome to React</h1>
+     <img src={reduxLogo} className="App-logo" />
+     <img src={jestLogo} className="App-logo" />
+     <h1 className="App-title">use redux, motion and jest</h1>
     </header>
     <p className="App-intro">
      To get started, edit <code>src/App.js</code> and save to reload
