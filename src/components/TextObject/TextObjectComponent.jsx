@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Motion, spring } from 'react-motion';
+
 
 import * as Style from './TextObjectStyle';
 
@@ -7,8 +9,10 @@ class TextObjectComponent extends Component {
     super(props);
     this.state = {
       editing: false,
-      xPosition: 0,
+      xPosition: 100,
       yPosition: 200,
+      finishXPosition: 0,
+      finishYPosition: 0,
       width: 0,
       firstRender: true
     }
@@ -90,6 +94,10 @@ class TextObjectComponent extends Component {
           onBlur={() => {console.log('bye')}}
           onChange={this.onChangeTextObjectValue}
           onKeyPress={this.handleKeyPress} />
+
+          <Motion defaultStyle={{x: 0}} style={{x: spring(100)}}>
+            {value => <div style={{left:value.x, position: 'fixed', top: '200'}}> {value.x} </div>}
+          </Motion>
      </div>
     );
  }
