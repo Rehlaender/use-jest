@@ -6,39 +6,54 @@ import jestLogo from './jest.png';
 
 import './App.css';
 
+import TextObjectComponent from './components/TextObject/TextObjectComponent'
+
 import { simpleAction } from './actions/SimpleAction'
+import {
+  changeTextObjectValue,
+  addTextBox } from './actions/AnimationAction'
 
 const mapStateToProps = state => ({
  ...state
 })
 
 const mapDispatchToProps = dispatch => ({
- simpleAction: () => dispatch(simpleAction())
+ simpleAction: () => dispatch(simpleAction()),
+ addTextBox: (lastId) => dispatch(addTextBox(lastId)),
+ animationAction: (textObject, newTextValue) => dispatch(changeTextObjectValue(textObject, newTextValue))
 })
 
 class App extends Component {
   simpleAction = (event) => {
    this.props.simpleAction();
   }
+  addTextBox = (event) => {
+    const lastId = this.props.animationReducer.texts.length;
+    this.props.addTextBox(lastId);
+  }
+  animationAction = (textObject, newTextValue) => {
+   this.props.animationAction(textObject, newTextValue);
+  }
  render() {
   return (
    <div className="App">
     <header className="App-header">
-     <img src={logo} className="App-logo" alt="logo" />
-     <img src={reduxLogo} className="App-logo" />
-     <img src={jestLogo} className="App-logo" />
+     <img alt="1" id="logo" src={logo} className="App-logo" alt="logo" />
+     <img alt="2" src={reduxLogo} className="App-logo" />
+     <img alt="3" src={jestLogo} className="App-logo" />
      <h1 className="App-title">use redux, motion and jest</h1>
     </header>
-    <p className="App-intro">
-     To get started, edit <code>src/App.js</code> and save to reload
-    </p>
 
-    <button onClick={this.simpleAction}>Test redux action</button>
-    <pre>
-     {
-      JSON.stringify(this.props)
-     }
-    </pre>
+    {
+      this.props.animationReducer.texts.map((textObject, i) => {
+        return (
+          <TextObjectComponent
+          key={i} id={textObject.id} textObject={textObject} text={textObject.text} animation={textObject.animation}
+          dispatchChangeValue={this.animationAction} />
+        )
+      })
+    }
+    <button onClick={this.addTextBox}>Add TextBox</button>
    </div>
   );
  }
