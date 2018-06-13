@@ -5,11 +5,6 @@ const initialState = {
       text: 'hi',
       animation: 'linear'
     },
-    {
-      id: 1,
-      text: 'dude',
-      animation: 'linear'
-    },
   ]
 }
 
@@ -30,10 +25,8 @@ export default (state = {...initialState}, action) => {
       }
       break;
     case 'CHANGE_TEXT_VALUE':
-      console.log(action.payload);
       const { id } = action.payload.textObject;
       const { newTextValue } = action.payload;
-      console.log(newTextValue);
       const newTextValues = state.texts.map(textObject => {
         if (textObject.id === id) {
           textObject.text = newTextValue;
